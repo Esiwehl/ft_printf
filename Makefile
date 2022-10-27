@@ -1,5 +1,5 @@
-SRCS			= main.c
-MAN_OBJS		=	$(SRCS:.c=.o)
+SRCS			= 	main.c
+OBJS		=	$(SRCS:.c=.o)
 
 
 NAME			= libftprintf.a
@@ -14,13 +14,14 @@ AR				= ar rcs
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(AR) $@ $^
+	@$(AR) $@ $^
+	@echo "Compiling..."
 
 %.o : %.c $(HEADERF)
 	@$(CC) -c $(CFLAGS) -o $@ $<
 
 clean :
-	$(RM) $(OBJS) $(BONUS_OBJS)
+	$(RM) $(OBJS)
 
 fclean : clean
 	$(RM) $(NAME)
