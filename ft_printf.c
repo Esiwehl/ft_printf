@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_printf.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ewehl <ewehl@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 20:08:20 by ewehl         #+#    #+#                 */
-/*   Updated: 2022/10/27 21:26:50 by ewehl         ########   odam.nl         */
+/*   Updated: 2022/10/28 10:51:22 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-char	*base_def(char flag);
-size_t	ft_getlen(size_t num);
-char	*ft_itoa(int n);
-size_t	ft_putptr(unsigned long long ptr);
-size_t put_hex(size_t n, char format);
+#include "ft_printf.h"
 
 size_t	ft_putchar_len(int c)
 {
@@ -110,7 +101,9 @@ int ft_printf(const char *format, ...)
 	return (count);
 }
 
-int main()
+
+#include <stdio.h>
+int main(void)
 {
 	// float x = 7.12134352423;
 	// int y = 0xFA;

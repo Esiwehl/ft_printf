@@ -1,8 +1,7 @@
-// #include "ft_printf.h"
+#include "ft_printf.h"
 // #include "libft.h"
-#include <stdlib.h>
 
-size_t	ft_getlen(size_t num)
+size_t	ft_getlen(*void num)
 {
 	size_t	len;
 
@@ -22,7 +21,7 @@ char	*ft_itoa(int n)
 
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
-	len = ft_getlen((size_t) n);
+	len = ft_getlen(n);
 	numa = (char *)malloc(sizeof(char) * (len + 1));
 	if (!numa)
 		return (NULL);

@@ -3,12 +3,9 @@ NAME			= libftprintf.a
 LIBFT			= libft
 HEADERF			= headers
 
-SRC_DIR			= src/
+SRCS			= ft_printf.c ft_puthex.c ft_putuint.c
+OBJS			= $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 OBJ_DIR			= obj/
-
-SRCSF			= main.c
-SRCS			= $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
-OBJS			= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
 CC				= cc
 CFLAGS			= -Wall -Wextra -Werror -g
@@ -20,13 +17,14 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	@make -C $(LIBFT)
-	@cp libft/libft.a .
+	@cp libft/libft.a
 	@mv libft.a $(NAME)
 	@$(AR) $@ $^
 	@echo "Compiling ft_printf..."
 
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c
+$(OBJ_DIR)%.o : %.c $(HEADERF)
 	@echo "HELLUP"
+	@mkdir -p $(@D)
 	@$(CC) -c $(CFLAGS) -o $@ $<
 
 clean :
