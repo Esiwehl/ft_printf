@@ -1,20 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_printf.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ewehl <ewehl@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 20:08:20 by ewehl         #+#    #+#                 */
-/*   Updated: 2022/10/28 13:41:31 by ewehl         ########   odam.nl         */
+/*   Updated: 2022/10/28 13:50:35 by ewehl         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdarg.h>
-#include <unistd.h>
-
-int ft_printf(const char *format, ...);
+#include "ft_printf.h"
 
 size_t	ft_putchar_len(int c)
 {
@@ -23,82 +19,43 @@ size_t	ft_putchar_len(int c)
 
 size_t	ft_putstr_len(char *str)
 {
-	size_t count;
-
-	count = 0;
-	while(*str)
-		count += ft_putchar_len(*(str++));
-	return (count); 
-}
-
-size_t	ft_strlen(char *str)
-{
 	size_t idx;
 
 	idx = 0;
-	while (str[idx])
-		idx++;
-	return(idx);
+	if (!str[idx])
+		str = "(null)";
+	while(str[idx])
+		write(1, &str[idx++], 1);
+	return (idx); 
 }
 
-char	*base_def(int flag)
-{
-	char *base;
-
-	if (flag == 1)
-		base = "0123456789ABCDEF";
-	else if (flag == 2)
-		base = "0123456789abcdef";
-	else
-		base = "0123456789";
-	return (base);
-}
-
-size_t	put_nbr(int n, int flag)
+size_t	ft_putnbr_len(int n)
 {
 	size_t	count;
-	char	*base;
+	char	*num;
 
-	count = 0;
-	base = base_def(flag);
-	if (n == -2147483648)
-	{
-		put_nbr((n / 10), flag);
-		count += ft_putchar_len((8 + '0'));
-	}
-	else if (n < 0)
-	{
-		count += ft_putchar_len('-');
-		count += put_nbr(-n, flag);
-	}
-	else if (n > 9)
-	{
-		put_nbr((n / 10), flag);
-		count += ft_putchar_len(base[n % 10]);
-	}
-	else
-		count += ft_putchar_len(base[n]);
+	num = ft_itoa(n);
+	count = ft_putstr_len(num);
+	free(num);
 	return (count);
 }
 
-size_t put_hex(int n, int flag)
+size_t put_hex(size_t n, char format)
 {
 	size_t	count;
 	size_t	baselen;
 	char	*base;
 
-	count = 0;
-	base = base_def(flag);
-	baselen = ft_strlen(base);
-	if (n < 0)
-		put_hex(-n, flag);
-	if (n > (int) baselen - 1)
+	count = ft_getlen(n);
+	base = base_def(format);
+	baselen = 16;
+	if (n > baselen - 1)
 	{
-		put_hex((n / baselen), flag);
-		count += ft_putchar_len(base[n % baselen]);
+		put_hex((n / baselen), format);
+		ft_putchar_len(base[n % baselen]);
 	}
 	else
-		count += ft_putchar_len(base[n]);
+		ft_putchar_len(base[n]);
 	return (count);
 }
 
@@ -109,15 +66,15 @@ static int get_action(const char *str, va_list ap)
 	else if (*str == 's')
 		return(ft_putstr_len(va_arg(ap, char *)));
 	else if (*str == 'p')
-		puts("Is an Address");
+		return (ft_putptr(va_arg(ap, unsigned long long)));
 	else if (*str == 'd' || *str == 'i')
-		return(put_nbr(va_arg(ap, int), 0));
+		return(ft_putnbr_len(va_arg(ap, int)));
 	else if (*str == 'u')
 		puts("Is an uint");
 	else if (*str == 'x')
-		return(put_hex(va_arg(ap, int), 2));
+		return(put_hex(va_arg(ap, int), *str));
 	else if (*str == 'X')
-		return(put_hex(va_arg(ap, int), 1));
+		return(put_hex(va_arg(ap, int), *str));
 	else if (*str == '%')
 		return(ft_putchar_len('%'));
 	return (0);
@@ -144,16 +101,21 @@ int ft_printf(const char *format, ...)
 	return (count);
 }
 
-int main()
+
+#include <stdio.h>
+int main(void)
 {
 	// float x = 7.12134352423;
 	// int y = 0xFA;
-	int z =  -2147483647;
+	int z =  -2147483648;
 
 	// unsigned int a = 64250;
 
-	ft_printf("%X, %d\n", z, z);
-	printf("%X, %d\n", z, z);
+	int x = ft_printf("%X, %d\n", z, z);
+	int y = printf("%X, %d\n", z, z);
+
+	ft_printf("%d\t", x);
+	ft_printf("%d\n", y);
 
 	return (0);
 }

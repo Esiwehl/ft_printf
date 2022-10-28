@@ -1,31 +1,44 @@
-SRCS			= 	main.c
-OBJS		=	$(SRCS:.c=.o)
-
-
 NAME			= libftprintf.a
-HEADERF			= libft.h
+
+LIBFT			= libft
+HEADERF			= headers
+
+SRCS			= ft_printf.c ft_puthex.c ft_putuint.c
+OBJS			= $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
+OBJ_DIR			= obj/
 
 CC				= cc
-RM				= rm -f
 CFLAGS			= -Wall -Wextra -Werror -g
+RM				= rm -f
 
 AR				= ar rcs
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
+	@make -C $(LIBFT)
+	@cp libft/libft.a
+	@mv libft.a $(NAME)
 	@$(AR) $@ $^
-	@echo "Compiling..."
+	@echo "Compiling ft_printf..."
 
-%.o : %.c $(HEADERF)
+$(OBJ_DIR)%.o : %.c $(HEADERF)
+	@echo "HELLUP"
+	@mkdir -p $(@D)
 	@$(CC) -c $(CFLAGS) -o $@ $<
 
 clean :
-	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
+	@make clean -C $(LIBFT)
+	@echo "I just-a cleaning lady... :shrug:"
 
 fclean : clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
+	@$(RM) $(LIBFT)/libft.a
 
 re : fclean all
 
-.PHONY : clean fclean re all
+norm:
+	@norminette $(SRCS) $(HEADERF) | grep -v Norme -B1 || true
+
+.PHONY:		all clean fclean re norm
