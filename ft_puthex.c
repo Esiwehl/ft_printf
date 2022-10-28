@@ -15,6 +15,33 @@ size_t	ft_getlen(size_t num)
 	return (len);
 }
 
+char	*ft_itoa(int n)
+{
+	char	*numa;
+	size_t		len;
+
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	len = ft_getlen((size_t) n);
+	numa = (char *)malloc(sizeof(char) * (len + 1));
+	if (!numa)
+		return (NULL);
+	numa[len] = '\0';
+	if (n < 0)
+	{
+		n = -n;
+		numa[0] = '-';
+	}
+	if (n == 0)
+		numa[0] = '0';
+	while (len-- > 0 && n)
+	{
+		numa[len] = (n % 10) + '0';
+		n /= 10;
+	}
+	return (numa);
+}
+
 char	*base_def(char flag)
 {
 	char *base;
@@ -32,9 +59,6 @@ size_t	ft_putptr(unsigned long long ptr)
 
 	count = 0;
 	count += write(1, "0x", 2);
-	if (ptr == 0)
-		count += write(1, "0", 1);
-	else
-		count += ft_puthex(ptr, 'x');
+	count += ft_puthex(ptr, 'x');
 	return (count);
 }

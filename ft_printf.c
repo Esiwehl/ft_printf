@@ -10,10 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
-#include "libft.h"
+
+char	*base_def(char flag);
+size_t	ft_getlen(size_t num);
+char	*ft_itoa(int n);
+size_t	ft_putptr(unsigned long long ptr);
+size_t put_hex(size_t n, char format);
 
 size_t	ft_putchar_len(int c)
 {
@@ -25,7 +31,7 @@ size_t	ft_putstr_len(char *str)
 	size_t idx;
 
 	idx = 0;
-	if (str[idx] == NULL)
+	if (!str[idx])
 		str = "(null)";
 	while(str[idx])
 		write(1, &str[idx++], 1);
@@ -37,9 +43,8 @@ size_t	ft_putnbr_len(int n)
 	size_t	count;
 	char	*num;
 
-	count = 0;
 	num = ft_itoa(n);
-	len = ft_putstr_len(num);
+	count = ft_putstr_len(num);
 	free(num);
 	return (count);
 }
@@ -52,7 +57,7 @@ size_t put_hex(size_t n, char format)
 
 	count = ft_getlen(n);
 	base = base_def(format);
-	baselen = ft_strlen(base);
+	baselen = 16;
 	if (n > baselen - 1)
 	{
 		put_hex((n / baselen), format);
@@ -60,7 +65,6 @@ size_t put_hex(size_t n, char format)
 	}
 	else
 		ft_putchar_len(base[n]);
-	ft_printf("count = %d\n", count);
 	return (count);
 }
 
@@ -71,9 +75,9 @@ static int get_action(const char *str, va_list ap)
 	else if (*str == 's')
 		return(ft_putstr_len(va_arg(ap, char *)));
 	else if (*str == 'p')
-		return ();
+		return (ft_putptr(va_arg(ap, unsigned long long)));
 	else if (*str == 'd' || *str == 'i')
-		return(put_nbr_len(va_arg(ap, int)));
+		return(ft_putnbr_len(va_arg(ap, int)));
 	else if (*str == 'u')
 		puts("Is an uint");
 	else if (*str == 'x')
