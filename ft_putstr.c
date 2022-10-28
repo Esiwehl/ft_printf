@@ -1,45 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_putuint.c                                       :+:    :+:            */
+/*   ft_putstr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ewehl <ewehl@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/28 14:23:32 by ewehl         #+#    #+#                 */
-/*   Updated: 2022/10/28 17:03:20 by ewehl         ########   odam.nl         */
+/*   Created: 2022/10/28 13:54:49 by ewehl         #+#    #+#                 */
+/*   Updated: 2022/10/28 16:11:13 by ewehl         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "headers/ft_printf.h"
+#include "headers/libft.h"
 
-char	*ft_uitoa(unsigned int n)
+size_t	ft_putchar_len(int c)
 {
-	char		*numa;
-	size_t		len;
-
-	len = ft_getlen(n);
-	numa = (char *)malloc(sizeof(char) * (len + 1));
-	if (!numa)
-		return (NULL);
-	numa[len] = '\0';
-	if (n == 0)
-		numa[0] = '0';
-	while (len-- > 0 && n)
-	{
-		numa[len] = (n % 10) + '0';
-		n /= 10;
-	}
-	return (numa);
+	return (write(1, &c, 1));
 }
 
-size_t	ft_putuint(unsigned int n)
+size_t	ft_putstr_len(char *str)
+{
+	size_t	idx;
+
+	idx = 0;
+	if (!str)
+		return(ft_putstr_len("(null)"));
+	while (str[idx])
+		write(1, &str[idx++], 1);
+	return (idx);
+}
+
+size_t	ft_putnbr_len(int n)
 {
 	size_t	count;
 	char	*num;
 
-	count = 0;
-	num = ft_uitoa(n);
-	count += ft_putstr_len(num);
+	num = ft_itoa(n);
+	count = ft_putstr_len(num);
 	free(num);
 	return (count);
 }

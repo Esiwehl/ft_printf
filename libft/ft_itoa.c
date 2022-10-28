@@ -1,27 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_putuint.c                                       :+:    :+:            */
+/*   ft_itoa.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ewehl <ewehl@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/28 14:23:32 by ewehl         #+#    #+#                 */
-/*   Updated: 2022/10/28 17:03:20 by ewehl         ########   odam.nl         */
+/*   Created: 2022/10/13 11:47:46 by ewehl         #+#    #+#                 */
+/*   Updated: 2022/10/28 14:03:55 by ewehl         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "headers/ft_printf.h"
+#include "libft.h"
 
-char	*ft_uitoa(unsigned int n)
+static int	get_len(int *nb)
 {
-	char		*numa;
-	size_t		len;
+	int	len;
+	int	n;
 
-	len = ft_getlen(n);
+	len = 1;
+	n = *nb;
+	if (n < 0)
+	{
+		n *= -1;
+		len++;
+	}
+	while (n > 9)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
+}
+
+char	*ft_itoa(int n)
+{
+	char	*numa;
+	int		len;
+
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	len = get_len(&n);
 	numa = (char *)malloc(sizeof(char) * (len + 1));
 	if (!numa)
 		return (NULL);
 	numa[len] = '\0';
+	if (n < 0)
+	{
+		n = -n;
+		numa[0] = '-';
+	}
 	if (n == 0)
 		numa[0] = '0';
 	while (len-- > 0 && n)
@@ -32,14 +59,11 @@ char	*ft_uitoa(unsigned int n)
 	return (numa);
 }
 
-size_t	ft_putuint(unsigned int n)
-{
-	size_t	count;
-	char	*num;
-
-	count = 0;
-	num = ft_uitoa(n);
-	count += ft_putstr_len(num);
-	free(num);
-	return (count);
-}
+// int main()
+// {
+// 	int x = 1000;
+// 	char *strx;
+// 	strx = ft_itoa(x);
+// 	printf("strx = %s\n", strx);
+// 	free (strx);
+// }
