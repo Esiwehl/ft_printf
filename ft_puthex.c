@@ -12,7 +12,7 @@
 
 #include "headers/ft_printf.h"
 
-size_t	ft_getlen(size_t num)
+size_t	ft_getlen(size_t num, size_t base)
 {
 	size_t	len;
 
@@ -20,7 +20,7 @@ size_t	ft_getlen(size_t num)
 	while (num != 0)
 	{
 		len++;
-		num = num / 16;
+		num = num / base;
 	}
 	return (len);
 }
@@ -43,11 +43,11 @@ size_t	ft_puthex(unsigned long n, char format)
 	size_t	baselen;
 	char	*base;
 
-	count = ft_getlen(n);
-	base = base_def(format);
 	baselen = 16;
+	count = ft_getlen(n, baselen);
+	base = base_def(format);
 	if (!n)
-		return(ft_putstr_len("0"));
+		return (ft_putstr_len("0"));
 	if (n > baselen - 1)
 	{
 		ft_puthex((n / baselen), format);

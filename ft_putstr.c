@@ -6,7 +6,7 @@
 /*   By: ewehl <ewehl@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 13:54:49 by ewehl         #+#    #+#                 */
-/*   Updated: 2022/10/28 16:11:13 by ewehl         ########   odam.nl         */
+/*   Updated: 2022/10/29 17:24:08 by ewehl         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	ft_putstr_len(char *str)
 
 	idx = 0;
 	if (!str)
-		return(ft_putstr_len("(null)"));
+		return (ft_putstr_len("(null)"));
 	while (str[idx])
 		write(1, &str[idx++], 1);
 	return (idx);

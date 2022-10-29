@@ -6,7 +6,7 @@
 /*   By: ewehl <ewehl@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 14:23:32 by ewehl         #+#    #+#                 */
-/*   Updated: 2022/10/28 17:03:20 by ewehl         ########   odam.nl         */
+/*   Updated: 2022/10/29 17:20:41 by ewehl         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ char	*ft_uitoa(unsigned int n)
 	char		*numa;
 	size_t		len;
 
-	len = ft_getlen(n);
+	len = ft_getlen(n, 10);
 	numa = (char *)malloc(sizeof(char) * (len + 1));
 	if (!numa)
 		return (NULL);
 	numa[len] = '\0';
 	if (n == 0)
 		numa[0] = '0';
-	while (len-- > 0 && n)
+	while (n)
 	{
+		len--;
 		numa[len] = (n % 10) + '0';
 		n /= 10;
 	}

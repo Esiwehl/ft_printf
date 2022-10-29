@@ -6,7 +6,7 @@
 /*   By: ewehl <ewehl@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 20:08:20 by ewehl         #+#    #+#                 */
-/*   Updated: 2022/10/29 16:00:28 by ewehl         ########   odam.nl         */
+/*   Updated: 2022/10/29 17:26:50 by ewehl         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int	get_action(const char *str, va_list ap)
 	else if (*str == 'u')
 		return (ft_putuint(va_arg(ap, unsigned int)));
 	else if (*str == 'x')
-		return (ft_puthex(va_arg(ap, int), *str));
+		return (ft_puthex(va_arg(ap, unsigned int), *str));
 	else if (*str == 'X')
-		return (ft_puthex(va_arg(ap, int), *str));
+		return (ft_puthex(va_arg(ap, unsigned int), *str));
 	else if (*str == '%')
 		return (ft_putchar_len('%'));
 	return (0);
@@ -47,7 +47,7 @@ int	ft_printf(const char *format, ...)
 	{
 		if (format[idx] != '%')
 			count += ft_putchar_len(format[idx]);
-		if (format[idx] == '%')
+		if (format[idx] == '%' && format[idx + 1])
 			count += get_action(&format[++idx], args);
 		idx++;
 	}
@@ -55,16 +55,17 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
+// #include <limits.h>
 // int	main(void)
 // {
 // 	// float x = 7.12134352423;
 // 	// char *str = NULL;
 // 	// int z =  -2147483648;
 
-// 	unsigned int a = 64250;
+// 	// unsigned int a = -9;
 
-// 	int x = ft_printf("M:: %X, %p\n", a, &a);
-// 	int y = printf("O:: %X, %p\n", a, &a);
+// 	int x = ft_printf("%u\n", 0);
+// 	int y = printf("%u\n", 0);
 
 // 	ft_printf("%d\t", x);
 // 	ft_printf("%d\n", y);
