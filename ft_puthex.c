@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "headers/ft_printf.h"
-#include "headers/libft.h"
 
 size_t	ft_getlen(size_t num)
 {
