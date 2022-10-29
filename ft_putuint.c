@@ -6,7 +6,7 @@
 /*   By: ewehl <ewehl@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 14:23:32 by ewehl         #+#    #+#                 */
-/*   Updated: 2022/10/29 17:20:41 by ewehl         ########   odam.nl         */
+/*   Updated: 2022/10/29 20:22:27 by ewehl         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ size_t	ft_putuint(unsigned int n)
 	char	*num;
 
 	count = 0;
+	if (n < 10)
+		return (ft_putchar_len(n + '0'));
 	num = ft_uitoa(n);
 	count += ft_putstr_len(num);
 	free(num);
