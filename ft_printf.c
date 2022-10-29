@@ -6,7 +6,7 @@
 /*   By: ewehl <ewehl@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 20:08:20 by ewehl         #+#    #+#                 */
-/*   Updated: 2022/10/28 17:11:01 by ewehl         ########   odam.nl         */
+/*   Updated: 2022/10/28 19:41:15 by ewehl         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int	ft_printf(const char *format, ...)
 
 // 	unsigned int a = 64250;
 
-// 	int x = ft_printf("M:: %x, %p\n", a, &a);
-// 	int y = printf("O:: %x, %p\n", a, &a);
+// 	int x = ft_printf("M:: %X, %p\n", a, &a);
+// 	int y = printf("O:: %X, %p\n", a, &a);
 
 // 	ft_printf("%d\t", x);
 // 	ft_printf("%d\n", y);

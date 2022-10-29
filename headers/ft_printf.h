@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 
+int     ft_printf(const char *format, ...);
 size_t	ft_getlen(size_t num);
 char	*base_def(char flag);
 char	*ft_itoa(int n);

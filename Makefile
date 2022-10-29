@@ -6,7 +6,7 @@
 #    By: ewehl <ewehl@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/28 13:55:15 by ewehl         #+#    #+#                  #
-#    Updated: 2022/10/28 17:15:18 by ewehl         ########   odam.nl          #
+#    Updated: 2022/10/28 19:43:05 by ewehl         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ $(NAME) : $(OBJS)
 	@echo "Compiling ft_printf..."
 
 $(OBJ_DIR)%.o : %.c $(HEADERF)
-	@echo "HELLUP $@"
 	@mkdir -p $(@D)
 	@$(CC) -c $(CFLAGS) -o $@ $<
 
