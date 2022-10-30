@@ -6,7 +6,7 @@
 /*   By: ewehl <ewehl@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 20:08:20 by ewehl         #+#    #+#                 */
-/*   Updated: 2022/10/29 20:43:49 by ewehl         ########   odam.nl         */
+/*   Updated: 2022/10/30 20:04:00 by ewehl         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ static int	get_action(const char *str, va_list ap)
 		return (ft_puthex(va_arg(ap, unsigned int), *str));
 	else if (*str == '%')
 		return (ft_putchar_len('%'));
-	else
-		return (ft_putchar_len(*str));
-	return (0);
+	return (ft_putchar_len(*str));
 }
 
 int	ft_printf(const char *format, ...)
@@ -66,11 +64,11 @@ int	ft_printf(const char *format, ...)
 
 // 	// unsigned int a = -9;
 
-// 	int x = ft_printf("%%%%%%%");
-// 	// int y = printf("%%%%%%%\n");
+// 	int x = ft_printf("%%, %X, %x %\n", 62450, 62450);
+// 	int y = printf("%%, %X, %x \n", 62450, 62450);
 
 // 	ft_printf("%d\t", x);
-// 	// ft_printf("%d\n", y);
+// 	ft_printf("%d\n", y);
 
 // 	return (0);
 // }

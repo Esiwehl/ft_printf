@@ -20,7 +20,7 @@ size_t	ft_getlen(size_t num, size_t base)
 	while (num != 0)
 	{
 		len++;
-		num = num / base;
+		num /= base;
 	}
 	return (len);
 }
@@ -40,18 +40,16 @@ char	*base_def(char flag)
 size_t	ft_puthex(unsigned long n, char format)
 {
 	size_t	count;
-	size_t	baselen;
 	char	*base;
 
-	baselen = 16;
-	count = ft_getlen(n, baselen);
+	count = ft_getlen(n, 16);
 	base = base_def(format);
 	if (!n)
 		return (ft_putstr_len("0"));
-	if (n > baselen - 1)
+	if (n > 15)
 	{
-		ft_puthex((n / baselen), format);
-		ft_putchar_len(base[n % baselen]);
+		ft_puthex((n / 16), format);
+		ft_putchar_len(base[n % 16]);
 	}
 	else
 		ft_putchar_len(base[n]);
@@ -62,8 +60,6 @@ size_t	ft_putptr(unsigned long ptr)
 {
 	size_t	count;
 
-	count = 0;
-	count += write(1, "0x", 2);
-	count += ft_puthex(ptr, 'x');
+	count = write(1, "0x", 2) + ft_puthex(ptr, 'x');
 	return (count);
 }
